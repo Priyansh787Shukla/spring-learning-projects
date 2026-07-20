@@ -5,5 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class LoggingAspect {
+public class LoggingAspect
+{
+    public void log()
+    {
+        System.out.println("Student is going to be saved");
+    }
 }
