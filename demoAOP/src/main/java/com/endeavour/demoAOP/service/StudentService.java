@@ -13,4 +13,9 @@ public class StudentService
         throw new RuntimeException("Hey, I'm an Exception!");
         //return student;
     }
+
+    public String get(String s)
+    {
+        return s;
+    }
 }

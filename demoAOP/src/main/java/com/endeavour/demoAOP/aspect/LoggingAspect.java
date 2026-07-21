@@ -44,14 +44,35 @@ public class LoggingAspect
 //        System.out.println("after() called");
 //    }
 
-    @Around("execution(* com.endeavour.demoAOP.service.StudentService.create(..))")
-    public Student around(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.println("Before Target Method");
-        Student student = (Student) pjp.proceed();
-        System.out.println("After Target Method");
-        student.setAge(30);
-        student.setName("Rohit");
-        return student;
+//    @Around("execution(* com.endeavour.demoAOP.service.StudentService.create(..))")
+//    public Object around(ProceedingJoinPoint pjp) throws Throwable
+//    {
+//        System.out.println("Starting: "+pjp.getSignature().getName());
+//        try
+//        {
+//            Object result = pjp.proceed();
+//            System.out.println("Execution Successful");
+//            return result;
+//        }
+//        catch(Exception e)
+//        {
+//            System.out.println("Some Error Occurred, Execution Failed");
+//            throw e;
+//        }
+//        finally
+//        {
+//            System.out.println("Execution Completed");
+//        }
+//    }
+
+    @Around("execution(* com.endeavour.demoAOP.service.StudentService.get(..))")
+    public Object around(ProceedingJoinPoint pjp) throws Throwable
+    {
+        Object[] ar = pjp.getArgs();
+        String st = (String) ar[0]; //ar[0].toString() will also work
+        String nst = st.toUpperCase();
+        Object[] nar = {nst};
+        return pjp.proceed(nar);
     }
 }
 
