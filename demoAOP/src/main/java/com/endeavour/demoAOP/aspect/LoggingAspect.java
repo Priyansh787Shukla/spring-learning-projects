@@ -72,7 +72,9 @@ public class LoggingAspect
         String st = (String) ar[0]; //ar[0].toString() will also work
         String nst = st.toUpperCase();
         Object[] nar = {nst};
-        return pjp.proceed(nar);
+        String res = (String) pjp.proceed(nar);
+        res = res+" : String Intercepted";
+        return res;
     }
 }
 
