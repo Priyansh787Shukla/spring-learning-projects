@@ -1,6 +1,7 @@
 package com.endeavour.demoAOP.aspect;
 
 import com.endeavour.demoAOP.dto.Student;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
@@ -37,12 +38,40 @@ public class LoggingAspect
 //        System.out.println("Exception Message: "+e.getMessage());
 //    }
 
-    @After("execution(* com.endeavour.demoAOP.service.StudentService.create(..))")
-    public void after()
-    {
-        System.out.println("after() called");
+//    @After("execution(* com.endeavour.demoAOP.service.StudentService.create(..))")
+//    public void after()
+//    {
+//        System.out.println("after() called");
+//    }
+
+    @Around("execution(* com.endeavour.demoAOP.service.StudentService.create(..))")
+    public Student around(ProceedingJoinPoint pjp) throws Throwable {
+        System.out.println("Before Target Method");
+        Student student = (Student) pjp.proceed();
+        System.out.println("After Target Method");
+        student.setAge(30);
+        student.setName("Rohit");
+        return student;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

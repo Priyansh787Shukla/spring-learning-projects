@@ -10,7 +10,7 @@ public class StudentService
     public Student create(Student student)
     {
         System.out.println("Student Saved");
-        //throw new RuntimeException("Hey, I'm an Exception!");
-        return student;
+        throw new RuntimeException("Hey, I'm an Exception!");
+        //return student;
     }
 }
