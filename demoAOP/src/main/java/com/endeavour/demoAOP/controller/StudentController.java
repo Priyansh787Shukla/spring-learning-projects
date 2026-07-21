@@ -1,8 +1,10 @@
 package com.endeavour.demoAOP.controller;
 
+import com.endeavour.demoAOP.dto.Student;
 import com.endeavour.demoAOP.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +19,8 @@ public class StudentController
     }
 
     @PostMapping
-    public ResponseEntity<String> create()
+    public ResponseEntity<Student> create(@RequestBody Student student)
     {
-        return ResponseEntity.ok(studentService.create());
+        return ResponseEntity.ok(studentService.create(student));
     }
 }
