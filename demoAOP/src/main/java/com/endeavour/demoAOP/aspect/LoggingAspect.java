@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LoggingAspect
 {
+    //proxy for target create()
     @Before("execution(String com.endeavour.demoAOP.service.StudentService.create())")
     public void log()
     {
