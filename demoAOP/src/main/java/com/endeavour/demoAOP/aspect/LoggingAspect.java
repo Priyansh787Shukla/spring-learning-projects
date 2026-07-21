@@ -1,10 +1,7 @@
 package com.endeavour.demoAOP.aspect;
 
 import com.endeavour.demoAOP.dto.Student;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,18 +28,21 @@ public class LoggingAspect
 //        System.out.println("afterReturning() Called");
 //    }
 
-    @AfterThrowing("execution(* com.endeavour.demoAOP.service.StudentService.create(..))")
-    public void afterThrowing()
-    {
+//    @AfterThrowing(value = "execution(* com.endeavour.demoAOP.service.StudentService.create(..))",
+//                   throwing = "e")
+//    public void afterThrowing(Throwable e)
+//    {
+//        System.out.println("afterThrowing() called");
+//        System.out.println("Exception Type: "+e.getClass().getName());
+//        System.out.println("Exception Message: "+e.getMessage());
+//    }
 
+    @After("execution(* com.endeavour.demoAOP.service.StudentService.create(..))")
+    public void after()
+    {
+        System.out.println("after() called");
     }
 }
-
-
-
-
-
-
 
 
 
