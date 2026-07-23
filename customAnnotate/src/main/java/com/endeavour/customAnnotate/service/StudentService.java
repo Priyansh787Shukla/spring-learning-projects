@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentService
 {
-    @TrackTime
+    @TrackTime(warnAfter=2000, operation = "create student")
     public Student create(Student student)
     {
         try
         {
-            Thread.sleep(1500);
+            Thread.sleep(2000);
         }
         catch(Exception e) {}
         System.out.println("Student Saved");
