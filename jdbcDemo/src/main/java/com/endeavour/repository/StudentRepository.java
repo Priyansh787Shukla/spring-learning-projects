@@ -19,8 +19,27 @@ public class StudentRepository
             Statement statement = connection.createStatement();
             String sql = "INSERT INTO students(name, email, age) VALUES ('Rohit', 'rohit123@gmail.com', 24)";
             int result = statement.executeUpdate(sql);
-            if(result==1) System.out.println("Operation Successful");
-            else System.out.println("Operation Failed");
+            if(result==1) System.out.println("Create Operation Successful");
+            else System.out.println("Create Operation Failed");
+            connection.close();
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Database Connection Failed");
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUser()
+    {
+        try
+        {
+            Connection connection = DriverManager.getConnection(url, name, password);
+            Statement statement = connection.createStatement();
+            String sql = "UPDATE students SET age=31 WHERE id=1";
+            int result = statement.executeUpdate(sql);
+            if(result==1) System.out.println("Update Operation Successful");
+            else System.out.println("Update Operation Failed");
             connection.close();
         }
         catch(SQLException e)
@@ -30,3 +49,18 @@ public class StudentRepository
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
