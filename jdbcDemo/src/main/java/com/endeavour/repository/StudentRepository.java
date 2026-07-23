@@ -48,6 +48,25 @@ public class StudentRepository
             e.printStackTrace();
         }
     }
+
+    public void deleteUser()
+    {
+        try
+        {
+            Connection connection = DriverManager.getConnection(url, name, password);
+            Statement statement = connection.createStatement();
+            String sql = "DELETE FROM students WHERE id=2";
+            int result = statement.executeUpdate(sql);
+            if(result==1) System.out.println("Delete Operation Successful");
+            else System.out.println("Delete Operation Failed");
+            connection.close();
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Database Connection Failed");
+            e.printStackTrace();
+        }
+    }
 }
 
 

@@ -8,6 +8,7 @@ public class Main
     {
         StudentRepository studentRepository = new StudentRepository();
         //studentRepository.createUser();
-        studentRepository.updateUser();
+        //studentRepository.updateUser();
+        studentRepository.deleteUser();
     }
 }
