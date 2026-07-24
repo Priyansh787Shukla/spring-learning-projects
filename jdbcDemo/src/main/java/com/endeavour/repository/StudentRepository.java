@@ -10,17 +10,20 @@ public class StudentRepository
     String name = "root";
     String password = "Priyansh@B787";
 
-    public void createUser()
+    public void createUser(Student student)
     {
-        try
+        String sql = """
+                     INSERT INTO students(name, email, age)
+                     VALUES(?, ?, ?)
+                     """;
+        try(Connection connection = DriverManager.getConnection(url, name, password); PreparedStatement pst = connection.prepareStatement(sql))
         {
-            Connection connection = DriverManager.getConnection(url, name, password);
-            Statement statement = connection.createStatement();
-            String sql = "INSERT INTO students(name, email, age) VALUES ('Rohit', 'rohit123@gmail.com', 24)";
-            int result = statement.executeUpdate(sql);
-            if(result==1) System.out.println("Create Operation Successful");
-            else System.out.println("Create Operation Failed");
-            connection.close();
+            pst.setString(1, student.getName());
+            pst.setString(2, student.getEmail());
+            pst.setInt(3, student.getAge());
+            int res = pst.executeUpdate();
+            if(res==1) System.out.println("Student created successfully");
+            else System.out.println("Student not created");
         }
         catch(SQLException e)
         {
@@ -29,17 +32,20 @@ public class StudentRepository
         }
     }
 
-    public void updateUser()
+    public void updateUser(Student student, long id)
     {
-        try
+        String sql = """
+                     UPDATE students SET name = ?, email = ?, age = ? WHERE id = ?
+                     """;
+        try(Connection connection = DriverManager.getConnection(url, name, password); PreparedStatement pst = connection.prepareStatement(sql))
         {
-            Connection connection = DriverManager.getConnection(url, name, password);
-            Statement statement = connection.createStatement();
-            String sql = "UPDATE students SET age=31 WHERE id=1";
-            int result = statement.executeUpdate(sql);
-            if(result==1) System.out.println("Update Operation Successful");
-            else System.out.println("Update Operation Failed");
-            connection.close();
+            pst.setString(1, student.getName());
+            pst.setString(2, student.getEmail());
+            pst.setInt(3, student.getAge());
+            pst.setLong(4, id);
+            int res = pst.executeUpdate();
+            if(res==1) System.out.println("Student updated successfully");
+            else System.out.println("Student not updated");
         }
         catch(SQLException e)
         {
@@ -48,17 +54,18 @@ public class StudentRepository
         }
     }
 
-    public void deleteUser()
+    public void deleteUser(long id)
     {
-        try
+        String sql = """
+                     DELETE FROM students WHERE id=?
+                     """;
+        try(Connection connection = DriverManager.getConnection(url, name, password);
+            PreparedStatement pst = connection.prepareStatement(sql))
         {
-            Connection connection = DriverManager.getConnection(url, name, password);
-            Statement statement = connection.createStatement();
-            String sql = "DELETE FROM students WHERE id=2";
-            int result = statement.executeUpdate(sql);
-            if(result==1) System.out.println("Delete Operation Successful");
-            else System.out.println("Delete Operation Failed");
-            connection.close();
+            pst.setLong(1, id);
+            int res = pst.executeUpdate();
+            if(res==1) System.out.println("Student deleted successfully");
+            else System.out.println("Student not deleted");
         }
         catch(SQLException e)
         {
@@ -69,14 +76,15 @@ public class StudentRepository
 
     public void getUserById(long id)
     {
-        try
+        String sql = """
+                     SELECT id, name, email, age FROM STUDENTS WHERE id=?
+                     """;
+        try(Connection connection = DriverManager.getConnection(url, name, password);
+            PreparedStatement pst = connection.prepareStatement(sql))
         {
-            Connection connection = DriverManager.getConnection(url, name, password);
-            Statement statement = connection.createStatement();
-            String sql = "SELECT id, name, email, age FROM students WHERE id=1";
-            ResultSet result = statement.executeQuery(sql);
-            System.out.println(getStudent(result));
-            connection.close();
+            pst.setLong(1, id);
+            ResultSet res = pst.executeQuery();
+            System.out.println(getStudent(res));
         }
         catch(SQLException e)
         {
