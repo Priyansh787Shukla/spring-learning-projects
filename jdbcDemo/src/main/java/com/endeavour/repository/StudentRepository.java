@@ -1,9 +1,8 @@
 package com.endeavour.repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.endeavour.model.Student;
+
+import java.sql.*;
 
 public class StudentRepository
 {
@@ -66,6 +65,35 @@ public class StudentRepository
             System.out.println("Database Connection Failed");
             e.printStackTrace();
         }
+    }
+
+    public void getUserById(long id)
+    {
+        try
+        {
+            Connection connection = DriverManager.getConnection(url, name, password);
+            Statement statement = connection.createStatement();
+            String sql = "SELECT id, name, email, age FROM students WHERE id=1";
+            ResultSet result = statement.executeQuery(sql);
+            System.out.println(getStudent(result));
+            connection.close();
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Database Connection Failed");
+            e.printStackTrace();
+        }
+    }
+
+    private Student getStudent(ResultSet result) throws SQLException
+    {
+        result.next();
+        Student student = new Student();
+        student.setId(result.getLong(1));
+        student.setName(result.getString(2));
+        student.setEmail(result.getString(3));
+        student.setAge(result.getInt(4));
+        return student;
     }
 }
 
