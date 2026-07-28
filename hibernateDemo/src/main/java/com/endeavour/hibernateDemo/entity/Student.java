@@ -1,20 +1,36 @@
 package com.endeavour.hibernateDemo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "Student_Records")
 public class Student
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_roll_no.")
     private Long id;
 
+    @Column(name = "student_names", nullable = false, length = 100)
     private String name;
+
+    @Column(name = "student_emails", nullable = false, unique = true, length = 200)
     private String email;
+
+    @Column(name = "student_age")
     private int age;
+
+    @Column(precision = 5, scale = 2)
+    private BigDecimal percentage;
+
+    @Enumerated(EnumType.STRING)
+    private StudentStatus status;
+
+    @Transient
+    private String str = "Hehehe...!!"; //my personal variable, not to be mapped into db so we use @Transient
 
     public Student() {
     }
