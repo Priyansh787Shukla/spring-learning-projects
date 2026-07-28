@@ -23,14 +23,8 @@ public class Student
     @Column(name = "student_age")
     private int age;
 
-    @Column(precision = 5, scale = 2)
-    private BigDecimal percentage;
-
-    @Enumerated(EnumType.STRING)
-    private StudentStatus status;
-
-    @Transient
-    private String str = "Hehehe...!!"; //my personal variable, not to be mapped into db so we use @Transient
+    @Embedded
+    private Address address;
 
     public Student() {
     }
